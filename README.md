@@ -154,7 +154,7 @@ Hardware
 
 CUDA-enabled GPU recommended
 
-📂 Project Structure
+📂 Project Structure after integrating UI
 adaptive-face-anti-spoofing/
 │
 ├── datasets/
@@ -181,19 +181,6 @@ adaptive-face-anti-spoofing/
 │
 ├── requirements.txt
 └── README.md
-
-⚙️ Installation
-1️⃣ Clone Repository
-git clone https://github.com/your-username/adaptive-face-anti-spoofing.git
-cd adaptive-face-anti-spoofing
-
-2️⃣ Create Virtual Environment
-python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-
-3️⃣ Install Dependencies
-pip install -r requirements.txt
 
 📦 Dataset Preparation
 
