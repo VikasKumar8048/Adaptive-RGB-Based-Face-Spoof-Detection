@@ -148,7 +148,7 @@ To handle domain shift:
 
 ---
 
-# 📂 Project Structure
+# 📂 Project Structure after integrating UI
 
 ```bash
 adaptive-face-anti-spoofing/
