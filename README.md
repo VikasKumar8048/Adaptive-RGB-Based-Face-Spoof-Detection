@@ -1,160 +1,156 @@
-📌 Adaptive RGB-Based Face Anti-Spoofing Framework
-🔐 Adaptive Multi-Expert Face Anti-Spoofing Using Reliability-Aware Gated Fusion and Domain Adaptation
-📖 Overview
+# 📌 Adaptive RGB-Based Face Anti-Spoofing Framework
 
-This project presents an Adaptive Multi-Expert RGB-Based Face Anti-Spoofing Framework designed to detect face presentation attacks (spoofing) using only a standard RGB camera.
+## 🔐 Adaptive Multi-Expert Face Anti-Spoofing Using Reliability-Aware Gated Fusion and Domain Adaptation
 
-Unlike conventional single-stream CNN models, this framework decomposes spoof detection into three complementary perceptual domains:
+---
 
-RGB Appearance Analysis
+## 📖 Overview
 
-Depth-Aware Structural Estimation
+This project presents an **Adaptive Multi-Expert RGB-Based Face Anti-Spoofing Framework** designed to detect face presentation attacks (spoofing) using only a standard RGB camera.
 
-Frequency-Domain Artifact Detection
+Unlike conventional single-stream CNN models, this framework decomposes spoof detection into **three complementary perceptual domains**:
 
-These expert branches are dynamically integrated using a Reliability-Aware Gated Fusion mechanism, followed by an Adaptive Replay Buffer for continual learning under domain shift.
+- RGB Appearance Analysis  
+- Depth-Aware Structural Estimation  
+- Frequency-Domain Artifact Detection  
 
-The system achieves:
+These expert branches are dynamically integrated using a **Reliability-Aware Gated Fusion mechanism**, followed by an **Adaptive Replay Buffer** for continual learning under domain shift.
 
-99.99% Accuracy (CASIA-FASD)
+### 🏆 Key Achievements
 
-ACER = 0.0164% (Intra-dataset)
+- **99.99% Accuracy (CASIA-FASD)**
+- **ACER = 0.0164% (Intra-dataset)**
+- **92.09% Cross-Dataset Accuracy (CASIA → NUAA)**
+- **8× reduction in cross-domain error after adaptation**
 
-92.09% Cross-Dataset Accuracy (CASIA → NUAA)
+---
 
-8× reduction in cross-domain error after adaptation
-
-🚨 Problem Statement
+# 🚨 Problem Statement
 
 Face recognition systems are vulnerable to:
 
-Printed photo attacks
-
-Replay attacks (video displayed on screen)
-
-Digital spoof artifacts
+- Printed photo attacks  
+- Replay attacks (video displayed on screen)  
+- Digital spoof artifacts  
 
 Traditional methods:
 
-Overfit to specific datasets
+- Overfit to specific datasets  
+- Fail under domain shift  
+- Require expensive depth/IR sensors  
 
-Fail under domain shift
+This project proposes a **hardware-independent RGB-only solution** with strong generalization and adaptive learning capability.
 
-Require expensive depth/IR sensors
+---
 
-This project proposes a hardware-independent RGB-only solution with strong generalization and adaptive learning capability.
-
-🧠 System Architecture
+# 🧠 System Architecture
 
 The framework consists of four major modules:
 
-1️⃣ Multi-Expert Feature Decomposition
-A. RGB Appearance Expert
+## 1️⃣ Multi-Expert Feature Decomposition
 
-Backbone: MobileNetV2
+### A. RGB Appearance Expert
+- Backbone: MobileNetV2  
+- Extracts spatial texture cues  
+- Detects color distortions and surface artifacts  
 
-Extracts spatial texture cues
+### B. Depth-Aware Structural Expert
+- U-Net style encoder-decoder  
+- Predicts pseudo-depth map from RGB  
+- Learns 3D facial structure vs planar spoof surfaces  
 
-Detects color distortions and surface artifacts
+### C. Frequency-Domain Expert
+- Applies Fast Fourier Transform (FFT)  
+- Extracts spectral artifacts (Moiré patterns, display noise)  
 
-B. Depth-Aware Structural Expert
+---
 
-U-Net style encoder-decoder
-
-Predicts pseudo-depth map from RGB
-
-Learns 3D facial structure vs planar spoof surfaces
-
-C. Frequency-Domain Expert
-
-Applies Fast Fourier Transform (FFT)
-
-Extracts spectral artifacts (Moiré patterns, display noise)
-
-2️⃣ Reliability-Aware Gated Fusion
+## 2️⃣ Reliability-Aware Gated Fusion
 
 Instead of static concatenation, the system:
 
-Learns confidence weights for each expert
+- Learns confidence weights for each expert  
+- Applies Softmax normalization  
+- Computes dynamically weighted fused embedding  
 
-Applies Softmax normalization
-
-Computes dynamically weighted fused embedding:
-
-F_fused = α_rgb * F_rgb + α_depth * F_depth + α_freq * F_freq
-
+```math
+F_{fused} = \alpha_{rgb} F_{rgb} + \alpha_{depth} F_{depth} + \alpha_{freq} F_{freq}
+```
 
 This improves robustness under:
 
-Low lighting
+- Low lighting  
+- Motion blur  
+- Sensor variations  
 
-Motion blur
+---
 
-Sensor variations
-
-3️⃣ Adaptive Replay Buffer
+## 3️⃣ Adaptive Replay Buffer
 
 To handle domain shift:
 
-Stores high-confidence predictions (p > 0.95)
+- Stores high-confidence predictions (p > 0.95)  
+- Periodically fine-tunes fusion layers  
+- Reduces catastrophic forgetting  
+- Enables continual learning  
 
-Periodically fine-tunes fusion layers
+---
 
-Reduces catastrophic forgetting
+# 📊 Experimental Results
 
-Enables continual learning
+## 📌 Intra-Dataset (CASIA-FASD)
 
-📊 Experimental Results
-📌 Intra-Dataset (CASIA-FASD)
-Metric	Value
-Accuracy	99.99%
-AUC	100%
-EER	0.0000%
-APCER	0.0000%
-BPCER	0.0327%
-ACER	0.0164%
-📌 Cross-Dataset (CASIA → NUAA)
-Metric	Value
-Accuracy	92.09%
-AUC	98.14%
-ACER	7.56%
+| Metric | Value |
+|--------|--------|
+| Accuracy | 99.99% |
+| AUC | 100% |
+| EER | 0.0000% |
+| APCER | 0.0000% |
+| BPCER | 0.0327% |
+| ACER | 0.0164% |
 
-Domain adaptation reduced ACER from ~62% to 7.56%.
+---
 
-🛠️ Technology Stack
-Programming Language
+## 📌 Cross-Dataset (CASIA → NUAA)
 
-Python 3.10
+| Metric | Value |
+|--------|--------|
+| Accuracy | 92.09% |
+| AUC | 98.14% |
+| ACER | 7.56% |
 
-Deep Learning Framework
+**Domain adaptation reduced ACER from ~62% to 7.56%.**
 
-PyTorch
+---
 
-Architectures
+# 🛠️ Technology Stack
 
-MobileNetV2 (Appearance Expert)
+## Programming Language
+- Python 3.10
 
-U-Net (Depth Expert)
+## Deep Learning Framework
+- PyTorch
 
-Custom CNN (Frequency Expert)
+## Architectures
+- MobileNetV2 (Appearance Expert)  
+- U-Net (Depth Expert)  
+- Custom CNN (Frequency Expert)  
+- MLP (Confidence Gating Network)  
 
-MLP (Confidence Gating Network)
+## Optimization
+- AdamW Optimizer  
+- Learning Rate: 1e-4  
+- Batch Size: 32  
+- Replay Buffer Size: 2000  
 
-Optimization
+## Hardware
+- CUDA-enabled GPU recommended  
 
-AdamW Optimizer
+---
 
-Learning Rate: 1e-4
+# 📂 Project Structure
 
-Batch Size: 32
-
-Replay Buffer Size: 2000
-
-Hardware
-
-CUDA-enabled GPU recommended
-
-📂 Project Structure after integrating UI
+```bash
 adaptive-face-anti-spoofing/
 │
 ├── datasets/
@@ -181,123 +177,138 @@ adaptive-face-anti-spoofing/
 │
 ├── requirements.txt
 └── README.md
+```
 
-📦 Dataset Preparation
+---
+
+# 📦 Dataset Preparation
 
 Due to licensing restrictions, datasets must be downloaded separately:
 
-CASIA-FASD
-
-NUAA
+- CASIA-FASD  
+- NUAA  
 
 Place dataset folders inside:
 
+```bash
 datasets/
+```
 
+Example structure:
 
-Follow dataset structure as:
-
+```bash
 datasets/CASIA/
 datasets/NUAA/
+```
 
-🚀 Training
+---
+
+# 🚀 Training
+
+```bash
 python training/train.py --dataset CASIA --epochs 5
+```
 
-🧪 Evaluation
-Intra-dataset testing:
+---
+
+# 🧪 Evaluation
+
+## Intra-dataset testing
+
+```bash
 python evaluation/evaluate.py --dataset CASIA
+```
 
-Cross-dataset testing:
+## Cross-dataset testing
+
+```bash
 python evaluation/evaluate.py --train CASIA --test NUAA
+```
 
-📈 Metrics Reported
+---
 
-Accuracy
+# 📈 Metrics Reported
 
-Precision
+- Accuracy  
+- Precision  
+- Recall  
+- F1-Score  
+- AUC  
+- EER  
+- APCER  
+- BPCER  
+- ACER  
 
-Recall
+Evaluation follows **ISO/IEC 30107-3 biometric standard**.
 
-F1-Score
+---
 
-AUC
+# 🔄 Adaptive Replay Learning
 
-EER
-
-APCER
-
-BPCER
-
-ACER
-
-Evaluation follows ISO/IEC 30107-3 biometric standard.
-
-🔄 Adaptive Replay Learning
-
-To enable domain adaptation:
-
+```bash
 python training/adaptive_update.py --buffer_size 2000 --threshold 0.95
+```
 
-🔍 Visualization
+---
 
-The project includes:
+# 🔍 Visualization Outputs
 
-Confusion Matrix
+- Confusion Matrix  
+- ROC Curve  
+- t-SNE Feature Space Visualization  
+- Pseudo-depth Map Visualization  
+- FFT Magnitude Spectrum  
 
-ROC Curve
+---
 
-t-SNE Feature Space Visualization
+# 🔐 Security & Ethical Considerations
 
-Pseudo-depth Map Visualization
+- Designed for biometric authentication systems  
+- Supports privacy-aware deployment  
+- No permanent facial data storage  
+- GDPR-compliant integration possible  
 
-FFT Magnitude Spectrum Visualization
+---
 
-🔐 Security & Ethical Considerations
-
-Designed for biometric authentication systems
-
-Supports privacy-aware deployment
-
-Does not store facial images permanently
-
-Compatible with GDPR-compliant systems
-
-🚀 Deployment Scope
+# 🚀 Deployment Scope
 
 Suitable for:
 
-Mobile authentication
+- Mobile authentication  
+- Banking security  
+- Smart access control  
+- Identity verification systems  
 
-Banking security
+---
 
-Smart access control
+# 📌 Limitations
 
-Identity verification systems
-
-📌 Limitations
-
-Sensitive to extreme low-light conditions
-
-Limited robustness against high-fidelity 3D mask attacks
-
-Requires GPU for training
+- Sensitive to extreme low-light conditions  
+- Limited robustness against high-fidelity 3D mask attacks  
+- Requires GPU for training  
 
 Future work includes model compression and multi-sensor integration.
 
-📚 Citation
+---
 
-If you use this work, please cite:
+# 📚 Citation
 
+```
 Vikas Kumar,
 Adaptive RGB-Based Face Spoof Detection Using Multi-Expert Feature Decomposition and Gated Fusion.
+```
 
-👨‍💻 Author
+---
 
-Vikas Kumar
-Department of Computer Engineering
-Army Institute of Technology, Pune
-Email: Vikaskumar_240252@aitpune.edu.in
+# 👨‍💻 Author
 
-⭐ Final Note
+**Vikas Kumar**  
+Department of Computer Engineering  
+Army Institute of Technology, Pune  
+Email: Vikaskumar_240252@aitpune.edu.in  
+
+---
+
+# ⭐ Final Note
 
 This project demonstrates that adaptive multi-expert learning combined with domain-aware training provides a scalable and hardware-independent solution for next-generation face anti-spoofing systems.
