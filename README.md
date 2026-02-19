@@ -1,0 +1,1 @@
+# Adaptive-RGB-Based-Face-Spoof-Detection
